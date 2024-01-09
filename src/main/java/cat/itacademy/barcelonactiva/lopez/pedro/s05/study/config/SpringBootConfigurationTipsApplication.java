@@ -19,11 +19,15 @@ public class SpringBootConfigurationTipsApplication {
 
 	@Bean
 	ApplicationRunner applicationRunner (Environment environment,
-										 @Value("${say-welcome:Default welcome!}") String defaultWelcome) {
+										 @Value("${say-welcome:Default welcome!}") String defaultWelcome,
+											@Value("${Home}") String userHome,
+												@Value("${spring.datasource.url}") String springDataSourceURL) {
 		return args -> {
 			log.info("A message from application properties: " +
 					environment.getProperty("message"));
 			log.info("Welcome message: " + defaultWelcome);
+			log.info("User home: " + userHome);
+			log.info("Data source URL: " + springDataSourceURL);
 		};
 	}
 }
