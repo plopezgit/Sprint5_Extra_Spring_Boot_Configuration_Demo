@@ -3,6 +3,7 @@ package cat.itacademy.barcelonactiva.lopez.pedro.s05.study.config;
 import ch.qos.logback.classic.joran.action.ConfigurationAction;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +12,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 
 @Log4j2
@@ -21,9 +23,13 @@ public class SpringBootConfigurationTipsApplication {
 		//SpringApplication.run(SpringBootConfigurationTipsApplication.class, args);
 		new SpringApplicationBuilder()
 				.sources(SpringBootConfigurationTipsApplication.class)
-				.initializers(applicationContext ->
-						applicationContext.getEnvironment().getPropertySources()
-								.addLast(new BootifulPropertySource())).run(args);
+				//.initializers(applicationContext -> applicationContext.getEnvironment().getPropertySources().addLast(new BootifulPropertySource()))
+				.run(args);
+	}
+
+	@Autowired
+	void contributeToPropertySources(ConfigurableEnvironment environment) {
+		environment.getPropertySources().addLast(new BootifulPropertySource());
 	}
 
 	@Bean
